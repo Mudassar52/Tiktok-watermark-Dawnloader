@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon/favicon.ico" sizes="any">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>TikTok Downloader - Download TikTok Videos Without Watermark</title>
+    <style>
+        :root {
+            --primary-color: #fe2c55;
+            --secondary-color: #25f4ee;
+            --dark-color: #121212;
+            --light-color: #ffffff;
+            --text-dark: #333333;
+            --text-light: #f5f5f5;
+            --text-gray: #777777;
+            --border-color: #e0e0e0;
+            --bg-light: #f9f9f9;
+            --bg-dark: #1a1a1a;
+            --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --success-color: #4caf50;
+            --info-color: #2196f3;
+            --warning-color: #ff9800;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-container a{
+            text-decoration: none;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        body.dark-mode .nav-link {
+            color: var(--text-light);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            transition: transform 0.3s;
+            padding: 8px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to right, rgba(254, 44, 85, 0.1), rgba(37, 244, 238, 0.1));
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: -1;
+            animation: float 15s infinite alternate;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(to right, rgba(37, 244, 238, 0.1), rgba(254, 44, 85, 0.1));
+            border-radius: 50%;
+            bottom: -100px;
+            left: -100px;
+            z-index: -1;
+            animation: float 10s infinite alternate-reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 30px); }
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+
+        body.dark-mode .hero-description {
+            color: #aaaaaa;
+        }
+
+        .download-form {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .download-input {
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-light);
+            outline: none;
+        }
+
+        .download-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(254, 44, 85, 0.2);
+        }
+
+        body.dark-mode .download-input {
+            background-color: #2a2a2a;
+            color: var(--text-light);
+            border-color: #444444;
+            box-shadow: var(--shadow-dark);
+        }
+
+        .download-button {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .download-button:hover {
+            transform: translateY(-50%) scale(1.03);
+            box-shadow: 0 10px 20px rgba(254, 44, 85, 0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: var(--light-color);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-light), 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .feature-card {
+            background-color: #2a2a2a;
+            box-shadow: var(--shadow-dark);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .icon-fast {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success-color);
+        }
+
+        .icon-mp3 {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--info-color);
+        }
+
+        .icon-watermark {
+            background-color: rgba(156, 39, 176, 0.1);
+            color: #9c27b0;
+        }
+
+        .icon-unlimited {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--warning-color);
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .feature-description {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        body.dark-mode .feature-description {
+            color: #aaaaaa;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .mockup-image {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.5s;
+        }
+
+        .mockup-image:hover {
+            transform: scale(1.02);
+        }
+
+        body.dark-mode .mockup-image {
+            box-shadow: var(--shadow-dark);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        body.dark-mode .how-it-works {
+            border-color: #333333;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .step-icon i {
+            color: var(--primary-color);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            color: var(--text-gray);
+        }
+
+        body.dark-mode .step-description {
+            color: #aaaaaa;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        body.dark-mode .faq-section {
+            border-color: #333333;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-radius: 12px;
+            background-color: var(--light-color);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        body.dark-mode .faq-item {
+            background-color: #2a2a2a;
+            box-shadow: var(--shadow-dark);
+        }
+
+        .faq-question {
+            padding: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--text-gray);
+        }
+
+        body.dark-mode .faq-answer {
+            color: #aaaaaa;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        body.dark-mode footer {
+            border-color: #333333;
+        }
+
+        .copyright {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        body.dark-mode .copyright {
+            color: #aaaaaa;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .footer-link {
+            color: #aaaaaa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .features-grid {
+                margin: 0 auto;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .download-button {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header & Navigation -->
+        <header>
+            <div class="nav-container">
+                <a href="./index.html" class="logo-container">
+                    <img src="./favicon/logo.png" alt="TikTok Downloader Logo" class="logo-image">
+                    <span class="logo-text">TikTok Downloader</span>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="./index.html" class="nav-link">Home</a>
+                    <a href="https://www.linkedin.com/in/mudassar-latif-95b02033b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="nav-link">Contact</a>
+                    <button id="themeToggle" class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">Download TikTok Videos <span class="gradient-text">Without Watermarks</span> For Free</h1>
+                <p class="hero-description">The fastest and easiest way to save TikTok videos with no watermark in highest quality.</p>
+                
+                <form action="download.html" method="GET" class="download-form">
+                    <input type="text" name="url" placeholder="Paste TikTok link here..." required class="download-input">
+                    <button type="submit" class="download-button">Download</button>
+                </form>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-fast">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Super Fast</h3>
+                            <p class="feature-description">Download in seconds</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon icon-mp3">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">MP3 Download</h3>
+                            <p class="feature-description">Extract audio easily</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon icon-watermark">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">No Watermark</h3>
+                            <p class="feature-description">Clean videos every time</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon icon-unlimited">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Unlimited</h3>
+                            <p class="feature-description">No download limits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image fade-in">
+                <img src="./favicon/images (1).jpeg" alt="TikTok Downloader App" class="mockup-image desktop-mockup">
+                <img src="./favicon/images.jpeg" alt="TikTok Downloader Mobile" class="mockup-image mobile-mockup">
+            </div>
+        </section>
+        
+        <!-- How It Works Section -->
+        <section class="how-it-works fade-in">
+            <h2 class="section-title">How It Works</h2>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="step-title">1. Copy & Paste Link</h3>
+                    <p class="step-description">Copy the URL from TikTok app and paste it in the input field</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <h3 class="step-title">2. Click Download</h3>
+                    <p class="step-description">Press the download button and wait for processing</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3 class="step-title">3. Save Video</h3>
+                    <p class="step-description">Choose format (MP4/MP3) and save to your device</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq-section fade-in">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is this service completely free?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, our TikTok downloader is 100% free to use with no hidden charges or limitations. You can download as many videos as you want without any cost.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need to create an account?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        No registration required. Simply paste your TikTok link and download instantly without any sign-up process or personal information.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What formats are supported?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        We support MP4 video downloads without watermark and MP3 audio extraction. All videos are downloaded in their highest available quality.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is it safe to use this downloader?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, our service is completely safe to use. We don't store your personal information or the content you download. Our system processes your request and delivers the content directly to your device.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <p class="copyright">&copy; 2025 TikTok Downloader. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                <a href="terms.html" class="footer-link">Terms of Service</a>
+                <a href="contact.html" class="footer-link">Contact Us</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('darkMode', null);
+            }
+        });
+        
+        // Fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -100px 0px"
+        };
+        
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        
+        fadeElements.forEach(element => {
+            appearOnScroll.observe(element);
+        });
+        
+        // FAQ accordion functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+        
+        // Hide desktop mockup on mobile and vice versa
+        const desktopMockup = document.querySelector('.desktop-mockup');
+        const mobileMockup = document.querySelector('.mobile-mockup');
+        
+        function handleMockupDisplay() {
+            if (window.innerWidth <= 768) {
+                desktopMockup.style.display = 'none';
+                mobileMockup.style.display = 'block';
+            } else {
+                desktopMockup.style.display = 'block';
+                mobileMockup.style.display = 'none';
+            }
+        }
+        
+        // Initial check
+        handleMockupDisplay();
+        
+        // Check on resize
+        window.addEventListener('resize', handleMockupDisplay);
+    </script>
+</body>
+
+</html>
