@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon/favicon.ico" sizes="any">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <script defer src="./js/download.js"></script>
+    <title>Download TikTok Videos Without Watermark</title>
+<style>
+  /* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Top Gradient */
+.top-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #fe2c55, #25f4ee);
+  z-index: 1000;
+}
+
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.container.hidden {
+  opacity: 0;
+}
+
+/* Main Content Layout */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* Video Container */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 550px;
+  overflow: hidden;
+  border-radius: 20px 0 0 20px;
+  background: #000;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-size: 10px 10px;
+  background-repeat: repeat;
+}
+
+/* Right Content */
+.right-content {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* User Card */
+.user-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fe2c55;
+}
+
+.user-details {
+  flex: 1;
+  min-width: 150px;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 18px;
+  color: #121212;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-username {
+  font-size: 14px;
+  color: #777;
+  margin-top: 2px;
+}
+
+.more-videos-btn {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  background-color: #f1f1f2;
+  border-radius: 20px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.more-videos-btn:hover {
+  background-color: #e3e3e4;
+}
+
+.more-videos-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+}
+
+/* Download Buttons Section */
+.download-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.download-btn {
+  padding: 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.no-watermark {
+  background: linear-gradient(135deg, #fe2c55, #ff4b78);
+  color: white;
+}
+
+.with-watermark {
+  background: linear-gradient(135deg, #25f4ee, #3cf8e2);
+  color: #333;
+}
+
+.button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.download-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 5px;
+}
+
+.download-title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.download-subtitle {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Music Card */
+.music-card {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 14px;
+  padding: 15px;
+  gap: 15px;
+}
+
+.music-cover-container {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.music-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.music-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-icon svg {
+  width: 12px;
+  height: 12px;
+  fill: white;
+}
+
+.music-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.music-title {
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-author {
+  font-size: 12px;
+  color: #777;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-download-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #fe2c55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.music-download-btn:hover {
+  transform: scale(1.1);
+}
+
+.music-download-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+/* Download Form */
+.download-form {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.form-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #888;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.link-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #999;
+}
+
+.url-input {
+  width: 100%;
+  padding: 15px 15px 15px 45px;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.url-input:focus {
+  border-color: #fe2c55;
+}
+
+.url-input::placeholder {
+  color: #aaa;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #fe2c55, #ff4b78);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(254, 44, 85, 0.2);
+}
+
+.submit-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Loading Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  transition: opacity 0.3s;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-card {
+  background-color: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #fe2c55;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 1s linear infinite;
+}
+
+.loader-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.loader-text {
+  font-size: 15px;
+  color: #777;
+}
+
+.dots {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+}
+
+.dots #dot1 {
+  animation: load 1s infinite;
+}
+
+.dots #dot2 {
+  animation: load 1s infinite;
+  animation-delay: 0.2s;
+}
+
+.dots #dot3 {
+  animation: load 1s infinite;
+  animation-delay: 0.4s;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes load {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 15px;
+    margin: 10px auto;
+  }
+  
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .video-container {
+    min-height: 450px;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    border-radius: 16px;
+  }
+  
+  .right-content {
+    padding: 20px;
+  }
+  
+  .video-container {
+    min-height: 350px;
+  }
+  
+  .user-card {
+    gap: 15px;
+  }
+  
+  .download-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+    margin: 5px auto;
+  }
+  
+  .main-content {
+    gap: 15px;
+  }
+  
+  .right-content {
+    padding: 15px;
+  }
+  
+  .video-container {
+    min-height: 250px;
+  }
+  
+  .user-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .more-videos-btn {
+    margin-top: 10px;
+  }
+  
+  .loader-card {
+    padding: 25px;
+  }
+}
+
+
+
+
+
+/* Additional Media Query for 576px and smaller screens */
+@media (max-width: 576px) {
+  .container {
+    padding: 8px;
+    margin: 3px auto;
+  }
+  
+  .main-content {
+    gap: 10px;
+    border-radius: 12px;
+  }
+  
+  .right-content {
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .video-container {
+    min-height: 200px;
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .user-name {
+    font-size: 16px;
+  }
+  
+  .user-username {
+    font-size: 12px;
+  }
+  
+  .more-videos-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .download-grid {
+    gap: 10px;
+  }
+  
+  .download-btn {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  
+  .download-title {
+    font-size: 14px;
+  }
+  
+  .download-subtitle {
+    font-size: 10px;
+  }
+  
+  .music-card {
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .music-cover-container {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .music-title {
+    font-size: 13px;
+  }
+  
+  .music-author {
+    font-size: 11px;
+  }
+  
+  .download-form {
+    padding: 15px;
+    border-radius: 12px;
+  }
+  
+  .form-title {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .url-input {
+    padding: 12px 12px 12px 40px;
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .loader-card {
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 15px;
+  }
+  
+  .loader-title {
+    font-size: 18px;
+  }
+  
+  .loader-text {
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+
+<body>
+    <div class="top-gradient"></div>
+    
+    <div id="container" class="container hidden">
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Video Container -->
+            <div id="video_container" class="video-container">
+                <video controls class="video-player" poster="" style="background-image:url(./assets/pattern.png);">
+                    <source id="video_source" src="">
+                </video>
+            </div>
+            
+            <!-- Right Side Content -->
+            <div class="right-content">
+                <!-- User Card -->
+                <div class="user-card">
+                    <!-- User Info -->
+                    <div class="user-header">
+                        <div class="user-info">
+                            <img id="author_avatar" class="user-avatar" src="" alt="User Profile">
+                            <div class="user-details">
+                                <div id="author_name" class="user-name"></div>
+                                <div id="author_username" class="user-username"></div>
+                            </div>
+                            <a id="author_videos" target="_blank" href="">
+                                <div class="more-videos-btn">
+                                    More Videos
+                                    <svg class="more-videos-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Download Buttons -->
+                    <div class="download-section">
+                        <div class="download-grid">
+                            <div onclick="handleDownloadButtonClick(this)" key="video" id="video_download" class="download-btn no-watermark">
+                                <div class="button-content">
+                                    <svg class="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                    <div class="download-title">Download</div>
+                                    <div class="download-subtitle">Without Watermark</div>
+                                </div>
+                                <svg class="dots hidden" id="loader" viewBox="0 0 132 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                    <g fill="#ffffff" id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd" sketch:type="MSPage">
+                                        <g sketch:type="MSArtboardGroup">
+                                            <circle id="dot1" sketch:type="MSShapeGroup" cx="25" cy="30" r="13"></circle>
+                                            <circle id="dot2" sketch:type="MSShapeGroup" cx="65" cy="30" r="13"></circle>
+                                            <circle id="dot3" sketch:type="MSShapeGroup" cx="105" cy="30" r="13"></circle>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            
+                            <div onclick="handleDownloadButtonClick(this)" key="video_wm" id="video_download_wm" class="download-btn with-watermark">
+                                <div class="button-content">
+                                    <svg class="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                    <div class="download-title">Download</div>
+                                    <div class="download-subtitle">With Watermark</div>
+                                </div>
+                                <svg class="dots hidden" id="loader" viewBox="0 0 132 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                    <g fill="#ffffff" id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd" sketch:type="MSPage">
+                                        <g sketch:type="MSArtboardGroup">
+                                            <circle id="dot1" sketch:type="MSShapeGroup" cx="25" cy="30" r="13"></circle>
+                                            <circle id="dot2" sketch:type="MSShapeGroup" cx="65" cy="30" r="13"></circle>
+                                            <circle id="dot3" sketch:type="MSShapeGroup" cx="105" cy="30" r="13"></circle>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Music Section -->
+                        <div class="music-card">
+                            <div class="music-cover-container">
+                                <img id="music_cover" class="music-cover" src="" alt="Music Cover">
+                                <div class="music-icon">
+                                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="music-info">
+                                <div id="music_title" class="music-title"></div>
+                                <div id="music_author" class="music-author"></div>
+                            </div>
+                            <div onclick="handleDownloadButtonClick(this)" key="music" id="music_download" class="music-download-btn">
+                                <svg class="music-download-icon button-content" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4v12m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                                </svg>
+                                <svg class="hidden spinner" id="loader" style="width: 24px; height: 24px;"></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Download Another Video Form -->
+                <form method="GET" class="download-form">
+                    <div class="form-title">
+                        DOWNLOAD ANOTHER VIDEO
+                    </div>
+                    <div class="input-container">
+                        <svg class="link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <input type="text" name="url" placeholder="Paste TikTok link here..." required class="url-input">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <svg class="submit-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"></path>
+                        </svg>
+                        GET VIDEO
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div id="overlay_loader" class="overlay hidden">
+        <div class="loader-card">
+            <div class="spinner"></div>
+            <div class="loader-title">Loading your video...</div>
+            <div class="loader-text">Please wait while we process your request</div>
+        </div>
+    </div>
+
+    <script>
+        // This ensures all existing JavaScript functionality remains intact
+        // Your existing download.js should handle all the functionality
+    </script>
+</body>
+
+</html>
