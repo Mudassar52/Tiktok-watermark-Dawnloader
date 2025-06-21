@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon/favicon.ico" sizes="any">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>About Us - TikTok Downloader | Learn More About Our Platform</title>
+    <style>
+        :root {
+            --primary-color: #fe2c55;
+            --secondary-color: #25f4ee;
+            --dark-color: #121212;
+            --light-color: #ffffff;
+            --text-dark: #333333;
+            --text-light: #f5f5f5;
+            --text-gray: #777777;
+            --border-color: #e0e0e0;
+            --bg-light: #f9f9f9;
+            --bg-dark: #1a1a1a;
+            --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --success-color: #4caf50;
+            --info-color: #2196f3;
+            --warning-color: #ff9800;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: var(--light-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode .navbar {
+            background-color: var(--bg-dark);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            transition: transform 0.3s;
+            padding: 8px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.05);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+         .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+         @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* About Hero Section */
+        .about-hero {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(to right, rgba(254, 44, 85, 0.1), rgba(37, 244, 238, 0.1));
+            border-radius: 50%;
+            top: -150px;
+            right: -150px;
+            z-index: -1;
+            animation: float 12s infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(20px, 20px) rotate(10deg); }
+        }
+
+        .about-hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-description {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        body.dark-mode .about-description {
+            color: #aaaaaa;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            padding: 60px 0;
+            background-color: var(--light-color);
+            margin: 40px 0;
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+        }
+
+        body.dark-mode .stats-section {
+            background-color: #2a2a2a;
+            box-shadow: var(--shadow-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        body.dark-mode .stat-label {
+            color: #aaaaaa;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .mission-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .mission-content p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        body.dark-mode .mission-content p {
+            color: #aaaaaa;
+        }
+
+        .mission-image {
+            position: relative;
+        }
+
+        .mission-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+        }
+
+        body.dark-mode .mission-image img {
+            box-shadow: var(--shadow-dark);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            background-color: var(--light-color);
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: var(--shadow-light);
+        }
+
+        body.dark-mode .features-section {
+            background-color: #2a2a2a;
+            box-shadow: var(--shadow-dark);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            padding: 40px 30px;
+            text-align: center;
+            border-radius: 15px;
+            background-color: var(--bg-light);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-light);
+        }
+
+        body.dark-mode .feature-card {
+            background-color: var(--bg-dark);
+        }
+
+        body.dark-mode .feature-card:hover {
+            box-shadow: var(--shadow-dark);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .feature-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .feature-icon i {
+            color: var(--primary-color);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        body.dark-mode .feature-description {
+            color: #aaaaaa;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .team-card {
+            background-color: var(--light-color);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        body.dark-mode .team-card {
+            background-color: #2a2a2a;
+            box-shadow: var(--shadow-dark);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .team-role {
+            color: var(--text-gray);
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .team-role {
+            color: #aaaaaa;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .social-link {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #aaaaaa;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 0 40px;
+            background-color: var(--light-color);
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+        }
+
+        body.dark-mode footer {
+            background-color: #2a2a2a;
+            border-color: #333333;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+
+        .footer-about {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        body.dark-mode .footer-about {
+            color: #aaaaaa;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social .social-link {
+            width: 40px;
+            height: 40px;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 14px;
+        }
+
+        .footer-link a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-link a:hover {
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .footer-link a {
+            color: #aaaaaa;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        body.dark-mode .footer-bottom {
+            border-color: #333333;
+        }
+
+        .copyright {
+            color: var(--text-gray);
+        }
+
+        body.dark-mode .copyright {
+            color: #aaaaaa;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom-link:hover {
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .footer-bottom-link {
+            color: #aaaaaa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .mission-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .about-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 10px 15px;
+            }
+
+            .logo-image {
+                width: 32px;
+                height: 32px;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .about-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .mission-content h2 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .theme-toggle {
+                font-size: 1rem;
+                width: 34px;
+                height: 34px;
+            }
+
+            .about-title {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+     <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img src="./favicon/logo.png" alt="TikTok Downloader Logo" class="logo-image">
+                <span class="logo-text">TikTok Downloader</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="./index.html" class="nav-link">Home</a>
+                <a href="./tiktok_about.html" class="nav-link">About</a>
+                <a href="./tiktok_blog.html" class="nav-link">Blog</a>
+                <a href="./tiktok_contact.html" class="nav-link">Contact</a>
+            </div>
+            
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- About Hero Section -->
+        <section class="about-hero fade-in">
+            <div class="about-hero-content">
+                <h1 class="about-title">About <span class="gradient-text">TikTok Downloader</span></h1>
+                <p class="about-description">
+                    We are dedicated to providing the fastest, easiest, and most reliable way to download TikTok videos without watermarks. Our mission is to help users save and enjoy their favorite TikTok content across all platforms with just a few clicks.
+                </p>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="stats-section fade-in">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">10M+</div>
+                    <div class="stat-label">Videos Downloaded</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500K+</div>
+                    <div class="stat-label">Happy Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section fade-in">
+            <div class="mission-content">
+                <h2>Our <span class="gradient-text">Mission</span></h2>
+                <p>
+                    At TikTok Downloader, we believe that amazing content should be accessible to everyone. Our platform was created to bridge the gap between TikTok's engaging videos and users who want to save, share, and enjoy this content offline.
+                </p>
+                <p>
+                    We focus on providing a seamless, fast, and secure downloading experience that respects both creators and users. Our advanced technology ensures high-quality downloads while maintaining the original video quality without any watermarks.
+                </p>
+                <p>
+                    Our commitment extends beyond just downloading - we're building a community where creativity meets accessibility, making TikTok content available whenever and wherever you need it.
+                </p>
+            </div>
+            <div class="mission-image">
+                <img src="./favicon/about.png" alt="Our Mission">
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section fade-in">
+            <h2 class="section-title">Why Choose <span class="gradient-text">Our Platform</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">
+                        Download TikTok videos in seconds with our optimized servers and advanced processing technology.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">100% Secure</h3>
+                    <p class="feature-description">
+                        Your privacy is our priority. We don't store your data or downloaded content on our servers.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile Friendly</h3>
+                    <p class="feature-description">
+                        Access our platform from any device - smartphone, tablet, or desktop with perfect responsiveness.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="feature-title">Always Free</h3>
+                    <p class="feature-description">
+                        No hidden fees, no subscriptions, no limits. Our service will always be completely free to use.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hd-video"></i>
+                    </div>
+                    <h3 class="feature-title">HD Quality</h3>
+                    <p class="feature-description">
+                        Download videos in their original quality - from HD to Full HD, maintaining perfect clarity.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="feature-title">Global Access</h3>
+                    <p class="feature-description">
+                        Available worldwide with multi-language support and optimized servers across different regions.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section fade-in">
+            <h2 class="section-title">Meet Our <span class="gradient-text">Team</span></h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Alex Johnson</h3>
+                    <p class="team-role">Founder & CEO</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Sarah Chen</h3>
+                    <p class="team-role">Lead Developer</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Mike Rodriguez</h3>
+                    <p class="team-role">UI/UX Designer</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">Emma Wilson</h3>
+                    <p class="team-role">Customer Support</p>
+                    <div class="team-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <a href="./index.html" class="footer-logo">
+                        <img src="./favicon/logo.png" alt="TikTok Downloader Logo" class="logo-image">
+                        <span class="logo-text">TikTok Downloader</span>
+                    </a>
+                    <p class="footer-about">
+                        TikTok Downloader allows you to download TikTok videos without watermark easily and for free. No registration, no limits, just simple downloading.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="./index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li class="footer-link"><a href="./tiktok_about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li class="footer-link"><a href="./index.html"><i class="fas fa-chevron-right"></i> Features</a></li>
+                        <li class="footer-link"><a href="./index.html"><i class="fas fa-chevron-right"></i> How It Works</a></li>
+                        <li class="footer-link"><a href="./tiktok_contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Support</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="./tiktok_help_center.html"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                        <li class="footer-link"><a href="./privacy policy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li class="footer-link"><a href="./tiktok watermark terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li class="footer-link"><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:info@tiktokdownloader.com"><i class="fas fa-envelope"></i> info@tiktokdownloader.com</a></li>
+                        <li class="footer-link"><a href="#"><i class="fas fa-map-marker-alt"></i> New York, USA</a></li>
+                        <li class="footer-link"><a href="tel:+1234567890"><i class="fas fa-phone"></i> +1 (234) 567-890</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+<p class="copyright">© 2025 TikTok Downloader. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="./privacy policy.html" class="footer-bottom-link">Privacy Policy</a>
+                    <a href="./tiktok watermark terms.html" class="footer-bottom-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Update icon
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Smooth scrolling animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add loading animation to stats numbers
+        const animateStats = () => {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = stat.textContent;
+                const isPercentage = target.includes('%');
+                const isPlus = target.includes('+');
+                const isSlash = target.includes('/');
+                
+                let finalNumber;
+                if (isPercentage) {
+                    finalNumber = parseFloat(target);
+                } else if (isSlash) {
+                    // For "24/7" type stats
+                    return; // Skip animation for complex formats
+                } else {
+                    // Extract number from strings like "10M+", "500K+"
+                    const numStr = target.replace(/[^\d.]/g, '');
+                    finalNumber = parseFloat(numStr);
+                }
+
+                if (isNaN(finalNumber)) return;
+
+                let current = 0;
+                const increment = finalNumber / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= finalNumber) {
+                        current = finalNumber;
+                        clearInterval(timer);
+                    }
+                    
+                    let displayValue = current.toFixed(1);
+                    if (target.includes('M')) {
+                        displayValue = displayValue + 'M';
+                    } else if (target.includes('K')) {
+                        displayValue = displayValue + 'K';
+                    }
+                    
+                    if (isPercentage) {
+                        displayValue = displayValue + '%';
+                    }
+                    if (isPlus) {
+                        displayValue = displayValue + '+';
+                    }
+                    
+                    stat.textContent = displayValue;
+                }, 30);
+            });
+        };
+
+        // Trigger stats animation when stats section is visible
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStats();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            statsObserver.observe(statsSection);
+        }
+
+        // Add hover effects to team cards
+        document.querySelectorAll('.team-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+
+        // Add click ripple effect to buttons and cards
+        document.querySelectorAll('.feature-card, .team-card').forEach(element => {
+            element.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: radial-gradient(circle, rgba(254, 44, 85, 0.3) 0%, transparent 70%);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s ease-out;
+                    pointer-events: none;
+                    z-index: 1;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Parallax effect for hero section background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBackground = document.querySelector('.about-hero::before');
+            if (heroBackground) {
+                document.querySelector('.about-hero').style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add smooth transitions when page loads
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.3s ease-in-out';
+        });
+
+        // Initialize page with fade in effect
+        document.body.style.opacity = '0';
+    </script>
+</body>
+</html>
